@@ -10,10 +10,26 @@ services:
       POSTGRES_PASSWORD: password
 
     ports:
-      - "5433:5432"
+      - "5432:5432"
 
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: .
+
+    container_name: ai_kb_api
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - .:/app
+
+    depends_on:
+      - postgres
+
+    command: uvicorn app.main:app --host 0.0.0.0 --reload
 
 volumes:
   postgres_data:

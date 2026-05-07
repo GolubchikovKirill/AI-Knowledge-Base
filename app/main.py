@@ -31,3 +31,8 @@ def create_document(
     db.refresh(new_document)
 
     return new_document
+
+@app.get("/getDocuments", response_model=list[DocumentResponse])
+def get_documents(db: Session = Depends(get_db)) -> list[type[Document]]:
+    documents = db.query(Document).all()
+    return documents
