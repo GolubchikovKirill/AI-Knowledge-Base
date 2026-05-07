@@ -29,6 +29,9 @@ services:
     depends_on:
       - postgres
 
+    environment:
+      WATCHFILES_FORCE_POLLING: "true"
+
     command: uvicorn app.main:app --host 0.0.0.0 --reload
 
 volumes:
